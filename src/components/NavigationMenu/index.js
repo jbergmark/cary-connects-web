@@ -41,10 +41,8 @@ class NavigationMenu extends Component {
       <div className={classes.root} >
       <AppBar position="static" onClick={context.handleDrawerClose}>
         <Toolbar>
-          
             <img className={classes.icon} src={CaryConnectsIcon} alt='cary connects icon' />
-          
-
+            
             <Typography variant="title" className={classes.brandText}>
               Cary Connects
             </Typography>
