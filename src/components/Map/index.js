@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import Provider, { Context } from './../Provider';
+import { Context } from './../Provider';
 
 //material-ui
 import { withStyles } from '@material-ui/core/styles';
@@ -35,18 +35,15 @@ class MapComponent extends React.Component {
     const { classes } = this.props;
 
     return(
-      <Provider>
-        <Context.Consumer>
-          {context => (
-            <Grid container className={classnames(classes.content, {[classes.contentShift]: context.state.drawerOpen})} justify="center" alignItems="center">
-              <Grid item xs={10}>
-                <Map polygonData={context.state.parkingData} />
-              </Grid>
+      <Context.Consumer>
+        {context => (
+          <Grid container className={classnames(classes.content, {[classes.contentShift]: context.state.drawerOpen})} justify="center" alignItems="center">
+            <Grid item xs={10}>
+              <Map polygonData={context.state.parkingData} />
             </Grid>
-          )}
-        </Context.Consumer>
-      </Provider>
-      
+          </Grid>
+        )}
+      </Context.Consumer>
     )
   }
 }

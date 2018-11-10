@@ -1,5 +1,5 @@
 import React from 'react';
-import Provider, { Context } from './components/Provider';
+import { Context } from './components/Provider';
 //material-ui
 import { withStyles } from '@material-ui/core/styles';
 //components
@@ -17,21 +17,21 @@ const styles = theme => ({
 class App extends React.Component {
   render () {
     const { classes } = this.props;
+    
 
     return (
-      <Provider>
-        <Context.Consumer>
-          {context => (
-            <div className={classes.root} onClick={context.clearResults}>
-              <NavigationMenu />
-              <Container>
-                <Drawer data={context.state.selectedMapItem ? context.state.selectedMapItem : null} />
-                <Map />
-              </Container>
-            </div>
-          )}
-        </Context.Consumer>
-      </Provider>
+      <Context.Consumer>
+        {context => (
+          <div className={classes.root} onClick={context.clearResults}>
+          {console.log(context.state)}
+            <NavigationMenu />
+            <Container>
+              <Drawer data={context.state.selectedMapItem ? context.state.selectedMapItem : null} />
+              <Map />
+            </Container>
+          </div>
+        )}
+      </Context.Consumer>
     )
   }
 }

@@ -6,12 +6,15 @@ import registerServiceWorker from './utilities/registerServiceWorker'
 import Theme from './Theme';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import App from './App';
+import Provider from './components/Provider';
 
 ReactDOM.render(
-  <Theme>
-    <CssBaseline>
-      <App />
-    </CssBaseline>
-  </Theme>
+  <Provider>
+    <Theme>
+      <CssBaseline>
+        <App />
+      </CssBaseline>
+    </Theme>
+  </Provider>
   , document.getElementById('root'))
 registerServiceWorker()
