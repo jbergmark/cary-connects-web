@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import 'leaflet/dist/leaflet.css'
 import './components/Map/styles.css'
+import './assets/Roboto.css'
 import Routes from './routes'
 import registerServiceWorker from './utilities/registerServiceWorker'
 
