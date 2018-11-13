@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
+require('dotenv').config();
 const Data = require("./data");
 const Feedback = require("./feedback");
 const API_PORT = 3001;
@@ -9,20 +10,23 @@ const app = express();
 const router = express.Router();
 
 // this is our MongoDB database
-const dbRoute = "mongodb://mccauleypeeler:nuphaw-Homqy6-hajnut@ds235431.mlab.com:35431/mccauleyp";
 
+if (process.env.NODE_ENV !== 'development') {
+  const dbRoute = "mongodb://mccauleypeeler:nuphaw-Homqy6-hajnut@ds235431.mlab.com:35431/mccauleyp";
+  mongoose.connect(
+    dbRoute,
+    { useNewUrlParser: true }
+  );
+
+  let db = mongoose.connection;
+
+  db.once("open", () => console.log("connected to the database"));
+
+  // checks if connection with the database is successful
+  db.on("error", console.error.bind(console, "MongoDB connection error:"));
+}
 // connects our back end code with the database
-mongoose.connect(
-  dbRoute,
-  { useNewUrlParser: true }
-);
 
-let db = mongoose.connection;
-
-db.once("open", () => console.log("connected to the database"));
-
-// checks if connection with the database is successful
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 // (optional) only made for logging and
 // bodyParser, parses the request body to be a readable json format
@@ -31,6 +35,8 @@ app.use(bodyParser.json());
 app.use(logger("dev"));
 // this is our get method
 // this method fetches all available data in our database
+  // additional prod environemtn configuration
+
 router.get("/getData", (req, res) => {
   Data.find((err, data) => {
     if (err) return res.json({ success: false, error: err });
