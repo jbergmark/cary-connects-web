@@ -1,5 +1,5 @@
 import React from 'react'
-import { MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 //#EB2392
 //#76BE4E
@@ -14,9 +14,11 @@ const theme = createMuiTheme({
     }
   },
   typography: {
-    useNextVariants: true
+    useNextVariants: true,
+    fontSize: 14
   }
-})
+});
+
 
 const Theme = props => (
   <MuiThemeProvider theme={theme}>
