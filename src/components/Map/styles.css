@@ -7,3 +7,7 @@ a {
   text-decoration: none;
   font-weight: 300;
 }
+
+.leaflet-container .leaflet-control-attribution, .leaflet-container .leaflet-control-scale {
+  font-size: 14px;
+}
