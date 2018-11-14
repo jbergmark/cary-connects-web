@@ -1,6 +1,5 @@
 import React from 'react';
 import { Context } from './components/Provider';
-import classnames from 'classnames';
 import Feedback from './components/Feedback';
 //material-ui
 import { withStyles } from '@material-ui/core/styles';
@@ -17,7 +16,7 @@ const styles = theme => ({
 });
 
 class App extends React.Component {
-  render () {
+  render() {
     const { classes } = this.props;
 
 

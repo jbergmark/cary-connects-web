@@ -42,9 +42,9 @@ class index extends Component {
     const center = PolygonCenter(coords)
     window.open(
       "https://www.google.com/maps/dir/?api=1&destination=" +
-        center.coordinates[0] +
-        "," +
-        center.coordinates[1]
+      center.coordinates[0] +
+      "," +
+      center.coordinates[1]
     )
   }
 
@@ -64,21 +64,21 @@ class index extends Component {
                 paper: classes.drawerPaper
               }}
             >
-                <div className={classes.header} onClick={context.handleDrawerClose}>
-                  <Grid container justify='space-between'>
-                    <Grid item>
-                      <Typography variant='title'>
-                        <strong>Parking Lot </strong>
-                        {context.state.drawerOpen ? '-> ' + context.state.selectedMapItem[0].properties.name: null}
-                      </Typography>
-                    </Grid>
-                    <Grid item>
-                      <ChevronLeftIcon className={classes.icon} style={cursor}/>
-                    </Grid>
+              <div className={classes.header} onClick={context.handleDrawerClose}>
+                <Grid container justify='space-between'>
+                  <Grid item>
+                    <Typography variant='h6'>
+                      <strong>Parking Lot </strong>
+                      {context.state.drawerOpen ? '-> ' + context.state.selectedMapItem[0].properties.name : null}
+                    </Typography>
                   </Grid>
-                </div>
+                  <Grid item>
+                    <ChevronLeftIcon className={classes.icon} style={cursor} />
+                  </Grid>
+                </Grid>
+              </div>
 
-              {context.state.drawerOpen ? <SideList data={this.props.data} openGoogleMaps={this.openGoogleMaps}/> : null}
+              {context.state.drawerOpen ? <SideList data={this.props.data} openGoogleMaps={this.openGoogleMaps} /> : null}
 
             </Drawer>
           )}

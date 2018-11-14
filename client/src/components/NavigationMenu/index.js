@@ -30,26 +30,26 @@ const styles = theme => ({
 
 class NavigationMenu extends Component {
 
-  render () {
+  render() {
     const { classes } = this.props;
 
     return (
       <Context.Consumer>
-      {context => (
-      <div className={classes.root} >
-      <AppBar position="static" onClick={context.handleDrawerClose}>
-        <Toolbar>
-            <img className={classes.icon} src={CaryConnectsIcon} alt='cary connects icon' />
-            <Typography variant="title" className={classes.brandText}>
-              Cary Connects
-            </Typography>
-          <div className={classes.grow} />
-          <SearchInput textChange={context.handleSearchChange} />
-        </Toolbar>
-      </AppBar>
-      <Results locationData={context.state.filteredLocation} />
-      </div>
-      )}
+        {context => (
+          <div className={classes.root} >
+            <AppBar position="static" onClick={context.handleDrawerClose}>
+              <Toolbar>
+                <img className={classes.icon} src={CaryConnectsIcon} alt='cary connects icon' />
+                <Typography variant="h6" className={classes.brandText}>
+                  Cary Connects
+                </Typography>
+                <div className={classes.grow} />
+                <SearchInput textChange={context.handleSearchChange} />
+              </Toolbar>
+            </AppBar>
+            <Results locationData={context.state.filteredLocation} />
+          </div>
+        )}
       </Context.Consumer>
     )
   }

@@ -35,16 +35,16 @@ class MapComponent extends React.Component {
   render() {
     const { classes } = this.props;
 
-    return(
-        <Context.Consumer>
-          {context => (
-            <Grid container className={classnames(classes.content, {[classes.contentShift]: context.state.drawerOpen})} justify="center" alignItems="center">
-              <Grid item xs={10}>
-                <Map polygonData={context.state.parkingData} />
-              </Grid>
+    return (
+      <Context.Consumer>
+        {context => (
+          <Grid container className={classnames(classes.content, { [classes.contentShift]: context.state.drawerOpen })} justify="center" alignItems="center">
+            <Grid item xs={10}>
+              <Map polygonData={context.state.parkingData} />
             </Grid>
-          )}
-        </Context.Consumer>
+          </Grid>
+        )}
+      </Context.Consumer>
     )
   }
 }

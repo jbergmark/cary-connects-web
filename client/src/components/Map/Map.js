@@ -37,42 +37,44 @@ class Map extends Component {
 
   render() {
     if (!this.props.polygonData) {
-      return <div></div>;
+      return <div>Taco taco taco</div>;
     }
 
     return (
       // build a Map
       <div>
-      <Context.Consumer>
-        {context => (
-          <LeafletMap
-            className="map"
-            maxBounds={this.state.bounds}
-            center={context.state.location}
-            minZoom={this.state.minZoom}
-            zoom={context.state.zoom}
-            markers={context.state.markers}
-          >
-            <TileLayer // attribution is required for OSM
-              attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker icon={pIcon} position={context.state.markers[0]}></Marker>
+        <Context.Consumer>
+          {context => (
+            <LeafletMap
+              className="map"
+              maxBounds={this.state.bounds}
+              center={context.state.location}
+              minZoom={this.state.minZoom}
+              zoom={context.state.zoom}
+              markers={context.state.markers}
+            >
 
-            {this.props.polygonData.map(polygonData => (
-              <Polygon
-                onClick={(event) => {context.createLotMarker(polygonData); context.clickPolygon(event);}}
-                positions={polygonData.geometry.coordinates[0]}
-                color="red"
-                name={polygonData.properties.name}
-                key={polygonData.geometry.coordinates[0]}
-              >
-              </Polygon>
-            ))}
-          </LeafletMap>
-        )}
-      </Context.Consumer>
-      </div>
+              <TileLayer // attribution is required for OSM
+                attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker icon={pIcon} position={context.state.markers[0]}></Marker>
+
+              {context.state.parkingData.map(polygonData => (
+
+                <Polygon
+                  onClick={(event) => { context.createLotMarker(polygonData); context.clickPolygon(event); }}
+                  positions={polygonData.geometry.coordinates[0]}
+                  color="red"
+                  name={polygonData.properties.name}
+                  key={polygonData.geometry.coordinates[0]}
+                >
+                </Polygon>
+              ))}
+            </LeafletMap>
+          )}
+        </Context.Consumer>
+      </div >
     );
   }
 }

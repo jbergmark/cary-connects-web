@@ -12,7 +12,7 @@ class Provider extends Component {
     this.state = {
       selectedMapItem: null,
       businessData: null,
-      parkingData: null,
+      parkingData: [],
       location: {
         lat: 35.787317,
         lng: -78.781226
@@ -131,9 +131,9 @@ class Provider extends Component {
             const center = PolygonCenter(event.target.value);
             window.open(
               "https://www.google.com/maps/dir/?api=1&destination=" +
-                center.coordinates[0] +
-                "," +
-                center.coordinates[1]
+              center.coordinates[0] +
+              "," +
+              center.coordinates[1]
             );
           },
           clearSearch: event => {
