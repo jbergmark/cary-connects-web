@@ -23,7 +23,7 @@ class Provider extends Component {
     searchValue: "",
     drawerOpen: false,
     searchResultsAnchorEl: null,
-    markers: [[1, 1]]
+    markers: [[1, 1]],
   };
 }
 
@@ -134,6 +134,19 @@ class Provider extends Component {
           },
           handleSearchResultsOpen: event => {
             this.setState({searchResultsAnchorEl: event.target})
+          },
+          determineView: (device) => {
+            switch(device) {
+              case 'mobile-landscape':
+              case 'tablet-landscape':
+              case 'desktop':
+                return 'horizontal';
+              case 'mobile-portrait':
+              case 'tablet-portrait':
+                return 'vertical';
+              default: 
+                return 'horizontal';
+            }
           }
         }}
         >
