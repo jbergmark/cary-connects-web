@@ -1,12 +1,8 @@
 # dependencies
 /node_modules
-<<<<<<< HEAD
-
-=======
 /backend/node_modules
 /client/node_modules
 /client/build
->>>>>>> first
 # testing
 /coverage
 
