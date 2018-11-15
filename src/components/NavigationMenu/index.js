@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import NavigationItem from './NavigationItem'
-import PageDirectory from 'src/pages/PageDirectory'
 import SearchInput from './SearchInput'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
