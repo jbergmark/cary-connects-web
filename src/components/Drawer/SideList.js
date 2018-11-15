@@ -9,6 +9,7 @@ import ParkingIcon from '@material-ui/icons/LocalParking'
 import RestrictionsIcon from '@material-ui/icons/NotInterested'
 import CommuteIcon from '@material-ui/icons/Commute'
 import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
 
@@ -46,7 +47,10 @@ const ListItemEl = props => {
 }
 
 const generateList = props => {
-  const arr = [];
+  const list = {
+    left: [],
+    right: []
+  };
   let id = 0;
 
   for(let key in props.data[0].properties) {
@@ -64,6 +68,7 @@ const generateList = props => {
           text={`Accessible: ${text}`}
           key="accessible"
         />
+        list.left.push(item);
         break;
       case 'stdParking':
         item = <ListItemEl
@@ -72,6 +77,7 @@ const generateList = props => {
           key="parking"
           id={id}
         />
+        list.left.push(item);
         break;
       case 'restrictions':
         item = <ListItemEl
@@ -80,11 +86,11 @@ const generateList = props => {
           key="restrictions"
           id={id}
         />
+        list.right.push(item);
         break;
       default:
         break;
     }
-    arr.push(item);
   }
 
   for(let key in props.data[0]) {
@@ -107,21 +113,32 @@ const generateList = props => {
       default:
         break;
     }
-  arr.push(item)
+  list.right.push(item)
   }
 
   id++;
-  return arr;
+  return list;
 }
 
 
 const SideList = props => {
+  console.log(props)
   const listItems = generateList(props)
-
+  console.log(props)
   return (
-    <List>
-      {listItems}
-    </List>
+    
+    <Grid container direction={props.view === 'horizontal'? 'column': 'row'} >
+      <Grid item xs={6}>
+        <List>
+          {listItems.left}
+        </List>
+      </Grid>
+      <Grid item xs={6}>
+        <List>
+          {listItems.right}
+        </List>
+      </Grid>
+    </Grid>
   )
 }
 

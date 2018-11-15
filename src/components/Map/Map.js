@@ -8,7 +8,29 @@ import {
 } from "react-leaflet";
 import parkingIcon from "../../assets/parkingIcon.png";
 import { Context } from "../../components/Provider";
-import "./styles.css";
+import {withStyles} from '@material-ui/core/styles';
+
+//height of map when drawer is open
+const verticalViewHeight = '50vh';
+const horizontalViewHeight = '70vh';
+
+
+const styles = theme => ({
+  mapHorizontal: {
+    height: horizontalViewHeight,
+  },
+  mapVertical: {
+    height: verticalViewHeight,
+  },
+  a: {
+    color: 'black',
+    textDecoration: 'none',
+    fontWeight: 300,
+  },
+  map: {
+    height: '100%'
+  }
+})
 
 
 // Due to a bug in react-leaflet Marker isn't working.
@@ -20,6 +42,15 @@ var pIcon = L.icon({
   iconAnchor: [24, 48],
   popupAnchor: [0, -48]
 });
+
+
+const applyMapClass = (view, drawerOpen, classes) => {
+  if(view === 'vertical' && drawerOpen){
+    return classes.mapVertical;
+  }else{
+    return classes.mapHorizontal;
+  }
+}
 
 class Map extends Component {
   state = {
@@ -39,19 +70,27 @@ class Map extends Component {
     });
     // this.handleClick = this.handleClick.bind(this);
   }
+  mapClasses = applyMapClass(this.props.view, this.props.drawerOpen, this.props.classes)
+
+  componentWillUpdate() {
+    this.mapClasses = applyMapClass(this.props.view, this.props.drawerOpen, this.props.classes)
+    
+  }
 
   render() {
+    const { classes } = this.props;
+    const device = this.props.device;
     if (!this.props.polygonData) {
       return <div></div>;
     }
 
     return (
       // build a Map
-      <div>
+      <div className={classes.map}>
       <Context.Consumer>
         {context => (
           <LeafletMap
-            className="map"
+            className={this.mapClasses}
             maxBounds={this.state.bounds}
             center={context.state.location}
             minZoom={this.state.minZoom}
@@ -94,4 +133,4 @@ class Map extends Component {
   }
 }
 
-export default Map;
+export default withStyles(styles)(Map);

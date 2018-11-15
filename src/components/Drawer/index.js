@@ -12,7 +12,7 @@ import classnames from 'classnames'
 
 const drawerWidth = 240;
 const horizontalWidth = 240;
-const verticalHeight = 240;
+const verticalHeight = 175;
 
 const styles = theme => ({
   rootHorizontal: {
@@ -116,7 +116,7 @@ class index extends Component {
                     </Grid>
                   </div>
 
-                {context.state.drawerOpen ? <SideList data={this.props.data} openGoogleMaps={this.openGoogleMaps}/> : null}
+                {context.state.drawerOpen ? <SideList view={context.determineView(device)} data={this.props.data} openGoogleMaps={this.openGoogleMaps}/> : null}
               </Drawer>
             </div>
           )}
