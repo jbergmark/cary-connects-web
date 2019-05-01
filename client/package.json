@@ -16,6 +16,7 @@
     "material-ui-icons": "^1.0.0-beta.36",
     "material-ui-search-bar": "^0.4.2",
     "modal": "^1.2.0",
+    "moment": "^2.24.0",
     "react": "^16.5.2",
     "react-dom": "16.5.2",
     "react-fade-in": "^0.1.6",

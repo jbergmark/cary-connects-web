@@ -7,6 +7,7 @@ import {
   Polygon
 } from "react-leaflet";
 import icon from "src/assets/map-marker-2.svg";
+import moment from "moment";
 import { Context } from "src/components/Provider";
 import "./styles.css";
 
@@ -43,46 +44,50 @@ class Map extends Component {
     return (
       // build a Map
       <div>
-      <Context.Consumer>
-        {context => (
-          <LeafletMap
-            className="map"
-            maxBounds={this.state.bounds}
-            center={context.state.location}
-            minZoom={this.state.minZoom}
-            zoom={context.state.zoom}
-            markers={context.state.markers}
-          >
-            <TileLayer // attribution is required for OSM
-              attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            
-            {context.state.markers.map(function(marker, index){
-                    return <Marker icon={pIcon} position={context.state.markers[index]}></Marker>;
-                  })}
+        <Context.Consumer>
+          {context => (
+            <LeafletMap
+              className="map"
+              maxBounds={this.state.bounds}
+              center={context.state.location}
+              minZoom={this.state.minZoom}
+              zoom={context.state.zoom}
+              markers={context.state.markers}
+            >
+              <TileLayer // attribution is required for OSM
+                attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
 
-            {this.props.polygonData.map(polygonData => {
-              return  (
-                <Polygon
-                  onClick={(event) => {context.createLotMarkerAtEntrance(polygonData); context.clickPolygon(event);}}
-                  positions={polygonData.geometry.coordinates[0]}
-                  fillColor = {polygonData.properties.fill}
-                  fillOpacity = {polygonData.properties["fill-opacity"]}
-                  color={polygonData.properties.stroke}
-                  opacity={polygonData.properties.opacity}
-                  weight={polygonData.properties["stroke-width"]}
-                  name={polygonData.properties.name}
-                  key={polygonData.geometry.coordinates[0]}
-                >
-                </Polygon>
-              )
-            }
-            
-)}
-          </LeafletMap>
-        )}
-      </Context.Consumer>
+              {context.state.markers.map(function (marker, index) {
+                return <Marker icon={pIcon} position={context.state.markers[index]}></Marker>;
+              })}
+
+              {this.props.polygonData
+                .filter(polygonData => !polygonData.inactiveStart 
+                  || (!polygonData.inactiveEnd && moment().isAfter(moment(polygonData.inactiveStart)))
+                  || moment().isBetween(moment(polygonData.inactiveStart), moment(polygonData.inactiveEnd)))
+                .map(polygonData => {
+                  return (
+                    <Polygon
+                      onClick={(event) => { context.createLotMarkerAtEntrance(polygonData); context.clickPolygon(event); }}
+                      positions={polygonData.geometry.coordinates[0]}
+                      fillColor={polygonData.properties.fill}
+                      fillOpacity={polygonData.properties["fill-opacity"]}
+                      color={polygonData.properties.stroke}
+                      opacity={polygonData.properties.opacity}
+                      weight={polygonData.properties["stroke-width"]}
+                      name={polygonData.properties.name}
+                      key={polygonData.geometry.coordinates[0]}
+                    >
+                    </Polygon>
+                  )
+                }
+
+                )}
+            </LeafletMap>
+          )}
+        </Context.Consumer>
       </div>
     );
   }
