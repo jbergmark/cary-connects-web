@@ -64,9 +64,9 @@ class Map extends Component {
               })}
 
               {this.props.polygonData
-                .filter(polygonData => !polygonData.inactiveStart 
-                  || (!polygonData.inactiveEnd && moment().isAfter(moment(polygonData.inactiveStart)))
-                  || moment().isBetween(moment(polygonData.inactiveStart), moment(polygonData.inactiveEnd)))
+                .filter(polygonData => !polygonData.properties.inactiveStart
+                    || (!polygonData.properties.inactiveEnd && !moment().isAfter(moment(polygonData.properties.inactiveStart)))
+                    || polygonData.properties.inactiveEnd && !moment().isBetween(moment(polygonData.properties.inactiveStart), moment(polygonData.properties.inactiveEnd)))
                 .map(polygonData => {
                   return (
                     <Polygon
